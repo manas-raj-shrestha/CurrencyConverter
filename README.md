@@ -2,11 +2,11 @@
 Info:
 Android project that takes the currency exchange data from openexchangerates and provides a real time convertion if the user is online and if offline provides convertion from the stored rates.
 
-Requirements:
--minSDKVersion 15
--TargetSDKVersion 21
--compileSdkVersion 21
--buildToolsVersion "21.1.2"
+Requirements: <break>
+-minSDKVersion 15  <break> 
+-TargetSDKVersion 21 <break>
+-compileSdkVersion 21 <break>
+-buildToolsVersion "21.1.2" <break>
 
 Used Libraries:
 - FloatingActionButton
