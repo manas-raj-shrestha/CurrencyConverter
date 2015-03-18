@@ -3,6 +3,7 @@ package com.example.manas.currencyconverter;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -53,6 +54,7 @@ public class MainActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(Color.parseColor("#FFFFFF")); //set the action bar title text color to white
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab); //floating action button initialization
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +67,7 @@ public class MainActivity extends ActionBarActivity {
         editText = (EditText) findViewById(R.id.et1);
         convert = (Button) findViewById(R.id.convert);
         tv = (TextView) findViewById(R.id.et2);
+
         list = populateSpinnerList();
         try {
 
