@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".MainActivity"
+    >
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar"></include>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:padding="5dp"
+        >
+
+
+        <EditText
+            android:id="@+id/et1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:digits="0,1,2,3,4,5,6,7,8,9,."
+            android:hint="To be converted" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et1"
+            android:layout_marginTop="5dp">
+
+        </Spinner>
+
+        <TextView
+            android:id="@+id/et2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner1"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:hint="Converted"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et2"
+            android:layout_marginTop="5dp">
+
+        </Spinner>
+
+        <Button
+            android:id="@+id/convert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner2"
+            android:layout_centerHorizontal="true"
+            android:background="@color/accentColor"
+            android:text="Convert"
+
+            />
+
+    </RelativeLayout>
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dp"
+
+        android:src="@drawable/questionicon"
+        fab:fab_colorNormal="#FFFFFF"
+        fab:fab_colorPressed="#FFFFFF"
+        fab:fab_colorRipple="#50FFFFFF" />
+</RelativeLayout>

@@ -1,0 +1,16 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
+    <style name="MyCustomActionBarTheme" parent="ThemeOverlay.AppCompat.Dark">
+    <item name="android:textColorPrimary">#FFFFFF</item>
+    <item name="android:textColorSecondary">#FFFFFF</item>
+    <item name="colorPrimary">#FFFFFF</item>
+
+
+    <item name="colorAccent">#FF9800</item>
+    </style>
+</resources>
