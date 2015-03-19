@@ -5,9 +5,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.bluelinelabs.logansquare.LoganSquare;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +56,11 @@ public class InitializeDatabase extends AsyncTask<Void, Void, Boolean> {
             rates = jsoni.getJSONObject("rates");
             l = rates.length();
 
+            String jsonString = rates.toString();
+            Image imageFromString = LoganSquare.parse(jsonString, Image.class);
+            Log.e("LOGAN      !!!!!",imageFromString.base    +    "    rates.tostring   " + jsonString);
+
+
             for (int i = 0; i < rates.length(); i++) {
 
                 db.CreateEntry(listOfRates.get(i), rates.getString(listOfRates.get(i)));
@@ -60,6 +68,8 @@ public class InitializeDatabase extends AsyncTask<Void, Void, Boolean> {
 
 
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

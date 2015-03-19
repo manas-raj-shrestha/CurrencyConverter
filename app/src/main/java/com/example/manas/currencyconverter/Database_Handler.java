@@ -18,6 +18,7 @@ public class Database_Handler extends Activity {
     private static final int DATABASE_VERSION = 1;
     private String db_table1 = "currency_offline_table";
     private String db_table2 = "code_country_table";
+    private String db_table3 = "country_details";
     private databasehelper ourdatabaseHelper;
     private final Context ourdbContext;
     private SQLiteDatabase ourReportsDatabase;
@@ -25,6 +26,10 @@ public class Database_Handler extends Activity {
     private String KEY_COUNTRY_NAME = "country_name";
     private String KEY_COUNTRY_CODE = "country_code";
     private String KEY_RATE_VALUE = "rate_value";
+    private String KEY_COUNTRY_CODE_A2 = "cc_a2";
+    private String KEY_COUNTRY_CODE_A3 = "cc_a3";
+    private String KEY_CURRENCY_USED = "currency_used";
+
     private class databasehelper extends SQLiteOpenHelper {
 
         public databasehelper(Context context) {
@@ -42,6 +47,10 @@ public class Database_Handler extends Activity {
             db.execSQL("CREATE TABLE " + db_table2 + " (" + KEY_ROWID
                     + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_COUNTRY_CODE
                     + " TEXT NOT NULL, " + KEY_COUNTRY_NAME
+                    + " TEXT NOT NULL);");
+            db.execSQL("CREATE TABLE " + db_table3 + " (" + KEY_ROWID
+                    + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_COUNTRY_NAME
+                    + " TEXT NOT NULL, " + KEY_COUNTRY_CODE_A2 + " TEXT NOT NULL, " + KEY_COUNTRY_CODE_A3 + " TEXT NOT NULL, " + KEY_CURRENCY_USED
                     + " TEXT NOT NULL);");
 
         }
@@ -99,7 +108,7 @@ public class Database_Handler extends Activity {
     public String getData() {
         // TODO Auto-generated method stub
 
-        String[] columns = new String[] { KEY_ROWID, KEY_COUNTRY_CODE,
+        String[] columns = new String[]{KEY_ROWID, KEY_COUNTRY_CODE,
                 KEY_RATE_VALUE};
         Cursor c = ourReportsDatabase.query(db_table1, columns, null, null,
                 null, null, null);
@@ -112,15 +121,16 @@ public class Database_Handler extends Activity {
 
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
             result = result + c.getString(iRow) + " " + c.getString(iCountry) + " "
-                    + c.getString(iValue) +"\n";
+                    + c.getString(iValue) + "\n";
 
         }
         return result;
     }
+
     public String getData2() {
         // TODO Auto-generated method stub
 
-        String[] columns = new String[] { KEY_ROWID, KEY_COUNTRY_CODE,
+        String[] columns = new String[]{KEY_ROWID, KEY_COUNTRY_CODE,
                 KEY_COUNTRY_NAME};
         Cursor c = ourReportsDatabase.query(db_table2, columns, null, null,
                 null, null, null);
@@ -133,16 +143,16 @@ public class Database_Handler extends Activity {
 
         for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
             result = result + c.getString(iRow) + " " + c.getString(iCountry) + " "
-                    + c.getString(iValue) +"\n";
+                    + c.getString(iValue) + "\n";
 
         }
         return result;
     }
 
     public String getRate(String countryCode) {
-        String[] columns = new String[] { KEY_ROWID, KEY_COUNTRY_CODE, KEY_RATE_VALUE };
+        String[] columns = new String[]{KEY_ROWID, KEY_COUNTRY_CODE, KEY_RATE_VALUE};
         Cursor c = ourReportsDatabase.query(db_table1, columns,
-                "country_code like " + "'"+countryCode+"'", null, null, null, null);
+                "country_code like " + "'" + countryCode + "'", null, null, null, null);
         String result = "";
         c.moveToNext();
         int day1 = c.getColumnIndex(KEY_RATE_VALUE);
@@ -152,9 +162,9 @@ public class Database_Handler extends Activity {
     }
 
     public String getCountryName(String countryCode) {
-        String[] columns = new String[] { KEY_ROWID, KEY_COUNTRY_CODE, KEY_COUNTRY_NAME };
+        String[] columns = new String[]{KEY_ROWID, KEY_COUNTRY_CODE, KEY_COUNTRY_NAME};
         Cursor c = ourReportsDatabase.query(db_table2, columns,
-                "country_code like " + "'"+countryCode+"'", null, null, null, null);
+                "country_code like " + "'" + countryCode + "'", null, null, null, null);
         String result = "";
         c.moveToNext();
         int day1 = c.getColumnIndex(KEY_COUNTRY_NAME);
