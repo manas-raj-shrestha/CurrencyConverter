@@ -45,7 +45,7 @@ public class MainActivity extends ActionBarActivity {
     TextView tv;
     ArrayAdapter<String> dataAdapter; //for 1st spinner
     ArrayAdapter<String> dataAdapter2; //for 2nd spinner
-
+    SpinnerAdapter spinnerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +69,11 @@ public class MainActivity extends ActionBarActivity {
         tv = (TextView) findViewById(R.id.et2);
 
         list = populateSpinnerList();
+
         try {
 
-            dataAdapter = new ArrayAdapter<String> // add Country Name to list will concat the country code with its country name
-                    (this, android.R.layout.simple_spinner_item, addCountryNametoList());
-            dataAdapter2 = new ArrayAdapter<String>                        // add Country Name to list will concat the country code with its country name
-                    (this, android.R.layout.simple_spinner_item, addCountryNametoList());
+            spinnerAdapter = new SpinnerAdapter(addCountryNametoList(),MainActivity.this);
+
         } catch (SQLException e) {
             e.printStackTrace();
             dataAdapter = new ArrayAdapter<String>
@@ -84,14 +83,14 @@ public class MainActivity extends ActionBarActivity {
         }
 
 
-        dataAdapter.setDropDownViewResource
-                (android.R.layout.simple_spinner_dropdown_item);
-        dataAdapter2.setDropDownViewResource
-                (android.R.layout.simple_spinner_dropdown_item);
+//        dataAdapter.setDropDownViewResource
+//                (android.R.layout.simple_spinner_dropdown_item);
+//        dataAdapter2.setDropDownViewResource
+//                (android.R.layout.simple_spinner_dropdown_item);
 
 
-        spinner1.setAdapter(dataAdapter);
-               spinner2.setAdapter(dataAdapter2);
+        spinner1.setAdapter(spinnerAdapter);
+               spinner2.setAdapter(spinnerAdapter);
 
         convert.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -357,7 +356,7 @@ public class MainActivity extends ActionBarActivity {
         db.open();
         for (int i = 0; i <= (list.size() - 1); i++) {
             listtobereturned.add(list.get(i) + "  " + db.getCountryName(list.get(i)));
-            Log.e("Whats Got", list.get(i) + "  " + db.getCountryName(list.get(i)));
+
         }
         db.close();
 
