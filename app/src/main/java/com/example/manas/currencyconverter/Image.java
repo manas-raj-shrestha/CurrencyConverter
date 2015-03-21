@@ -17,16 +17,9 @@ import java.util.List;
 public class Image {
 
     @JsonField
-    public String disclaimer;
+    public String NPR;
 
-    @JsonField
-    public String license;
 
-    @JsonField
-    public String timestamp;
-
-    @JsonField
-    public String base;
 
 
      /*

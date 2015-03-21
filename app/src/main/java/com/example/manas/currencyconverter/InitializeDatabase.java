@@ -56,9 +56,11 @@ public class InitializeDatabase extends AsyncTask<Void, Void, Boolean> {
             rates = jsoni.getJSONObject("rates");
             l = rates.length();
 
+
             String jsonString = rates.toString();
+
             Image imageFromString = LoganSquare.parse(jsonString, Image.class);
-            Log.e("LOGAN      !!!!!",imageFromString.base    +    "    rates.tostring   " + jsonString);
+            Log.e("LOGAN      !!!!!",imageFromString.NPR    +    "    rates.tostring   " + jsonString);
 
 
             for (int i = 0; i < rates.length(); i++) {

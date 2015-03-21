@@ -53,6 +53,8 @@ public class Database_Handler extends Activity {
                     + " TEXT NOT NULL, " + KEY_COUNTRY_CODE_A2 + " TEXT NOT NULL, " + KEY_COUNTRY_CODE_A3 + " TEXT NOT NULL, " + KEY_CURRENCY_USED
                     + " TEXT NOT NULL);");
 
+
+
         }
 
         @Override
@@ -83,6 +85,72 @@ public class Database_Handler extends Activity {
         ourdatabaseHelper.close();
 
     }
+
+
+    public String getCurrencyUsed(String countryCode) {
+        String[] columns = new String[]{KEY_ROWID, KEY_COUNTRY_CODE, KEY_RATE_VALUE};
+        Cursor c = ourReportsDatabase.query(db_table1, columns,
+                "country_code like " + "'" + countryCode + "'", null, null, null, null);
+        String result = "";
+        c.moveToNext();
+        int day1 = c.getColumnIndex(KEY_RATE_VALUE);
+
+        result = c.getString(day1);
+        return result;
+    }
+
+    public long CreateEntryForCountryTable(String countryName, String alphaCode2, String alphaCode3, String currencies) {
+        // TODO Auto-generated method stub
+
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_COUNTRY_NAME, countryName);
+        cv.put(KEY_COUNTRY_CODE_A2, alphaCode2);
+        cv.put(KEY_COUNTRY_CODE_A3, alphaCode3);
+        cv.put(KEY_CURRENCY_USED, currencies);
+        return ourReportsDatabase.insert(db_table3, null, cv);
+    }
+
+    public int getProfilesCount() {
+        String countQuery = "SELECT  * FROM " + db_table3;
+
+        Cursor cursor = ourReportsDatabase.rawQuery(countQuery, null);
+        int cnt = cursor.getCount();
+        cursor.close();
+        return cnt;
+    }
+
+    public void DeleteFromTable(String TableName){
+        ourReportsDatabase.execSQL("delete from '"+ TableName + "'" );
+    }
+    public String getDataOfCountries() {
+        // TODO Auto-generated method stub
+
+        String[] columns = new String[]{KEY_ROWID, KEY_COUNTRY_NAME,
+                KEY_COUNTRY_CODE_A2,KEY_COUNTRY_CODE_A3,KEY_CURRENCY_USED};
+
+        Cursor c = ourReportsDatabase.query(db_table3, columns, null, null,
+                null, null, null);
+        String result = "";
+
+        int iRow = c.getColumnIndex(KEY_ROWID);
+
+        int iCountry = c.getColumnIndex(KEY_COUNTRY_NAME);
+        int iA2= c.getColumnIndex(KEY_COUNTRY_CODE_A2);
+        int iA3 = c.getColumnIndex(KEY_COUNTRY_CODE_A3);
+        int iUsed = c.getColumnIndex(KEY_CURRENCY_USED);
+
+        for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+            result = result + c.getString(iRow) + " " + c.getString(iCountry) + " "
+                    + c.getString(iA2) +" "
+                    + c.getString(iA3)+ " "
+                    + c.getString(iUsed)+ "\n";
+
+        }
+        return result;
+    }
+
+
+
 
 
     public long CreateEntry(String countrycode, String rate) {
@@ -164,7 +232,7 @@ public class Database_Handler extends Activity {
     public String getCountryName(String countryCode) {
         String[] columns = new String[]{KEY_ROWID, KEY_COUNTRY_CODE, KEY_COUNTRY_NAME};
         Cursor c = ourReportsDatabase.query(db_table2, columns,
-                "country_code like " + "'" + countryCode + "'", null, null, null, null);
+                null, null, null, null, null);
         String result = "";
         c.moveToNext();
         int day1 = c.getColumnIndex(KEY_COUNTRY_NAME);
@@ -172,4 +240,40 @@ public class Database_Handler extends Activity {
         result = c.getString(day1);
         return result;
     }
+
+    public String getCountryNamedb3(int Position) {
+        String[] columns = new String[]{KEY_ROWID, KEY_COUNTRY_NAME, KEY_COUNTRY_CODE_A2};
+        Cursor c = ourReportsDatabase.query(db_table3, columns, null, null,
+                null, null, null);
+        String result = "";
+        c.moveToPosition(Position);
+        int day1 = c.getColumnIndex(KEY_COUNTRY_NAME);
+
+        result = c.getString(day1);
+        return result;
+    }
+    public String getCountryCurrency(int Position) {
+        String[] columns = new String[]{KEY_ROWID,  KEY_CURRENCY_USED};
+        Cursor c = ourReportsDatabase.query(db_table3, columns, null, null,
+                null, null, null);
+        String result = "";
+        c.moveToPosition(Position);
+        int day1 = c.getColumnIndex(KEY_CURRENCY_USED);
+
+        result = c.getString(day1);
+        return result;
+    }
+    public String getAlphacode2(int Position) {
+        String[] columns = new String[]{KEY_ROWID,  KEY_COUNTRY_CODE_A2};
+        Cursor c = ourReportsDatabase.query(db_table3, columns, null, null,
+                null, null, null);
+        String result = "";
+        c.moveToPosition(Position);
+        int day1 = c.getColumnIndex(KEY_COUNTRY_CODE_A2);
+
+        result = c.getString(day1);
+        return result;
+    }
+
+
 }
