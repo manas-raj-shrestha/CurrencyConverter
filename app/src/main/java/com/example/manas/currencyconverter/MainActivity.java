@@ -83,13 +83,9 @@ public class MainActivity extends ActionBarActivity {
         }
 
 
-//        dataAdapter.setDropDownViewResource
-//                (android.R.layout.simple_spinner_dropdown_item);
-//        dataAdapter2.setDropDownViewResource
-//                (android.R.layout.simple_spinner_dropdown_item);
 
 
-        spinner1.setAdapter(spinnerAdapter);
+               spinner1.setAdapter(spinnerAdapter);
                spinner2.setAdapter(spinnerAdapter);
 
         convert.setOnClickListener(new View.OnClickListener() {

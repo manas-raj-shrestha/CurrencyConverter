@@ -52,7 +52,7 @@ Context context;
         String Countryname = data.get(position);
         tv.setText(Countryname);
         String upToNCharacters = (Countryname.substring(0, Math.min(Countryname.length(), 2))).toLowerCase();
-        Log.e("First two characters", upToNCharacters);
+
         Picasso.with(context).load("http://www.geonames.org/flags/x/" + upToNCharacters + ".gif").into(iv);
         return convertView;
     }
