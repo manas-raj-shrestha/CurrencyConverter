@@ -12,6 +12,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.manas.currencyconverter.UpdateEveryThing.GetCountryListAndInfo;
+import com.example.manas.currencyconverter.UpdateEveryThing.GetRates;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.sql.SQLException;
@@ -44,7 +46,7 @@ public class NewSplashScreen extends Activity {
 
             get.requestData();
 
-            new Fetch_Rates().execute();
+            new GetRates(this,this,populateSpinnerList()).execute();
 
 
         }
@@ -53,99 +55,51 @@ public class NewSplashScreen extends Activity {
 
     }
 
-    public class Fetch_Rates extends AsyncTask<Void, Void, Boolean> {
-        Database_Handler db = new Database_Handler(NewSplashScreen.this);
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-                db.open();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-             jParser = new JSONParser();
-             jsoni = jParser.getJSONFromUrl(fetch_json);
-            JSONObject rates = null;
-             list = populateSpinnerList();
-            db.DeleteFromTable("currency_offline_table");
 
 
 
-            try {
-
-
-                rates = jsoni.getJSONObject("rates");
-                l = rates.length();
-
-                for (int i = 0; i < rates.length(); i++) {
-
-                    db.CreateEntry(list.get(i), rates.getString(list.get(i)));
-                }
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-             return null;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-            db.close();
-            new Fetch_CN().execute();
-        }
-    }
-
-
-    public class Fetch_CN extends AsyncTask<Void, Void, Boolean> {
-        Database_Handler db = new Database_Handler(NewSplashScreen.this);
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            try {
-                db.open();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-
-
-
-            jParser = new JSONParser();
-            jsoni = jParser.getJSONFromUrl(fetch_json_CC);
-            String CC;
-            try {
-                for (int i = 0; i < l; i++) {
-                    CC = jsoni.getString(list.get(i));
-                    db.CreateEntrydb2(list.get(i), CC);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-//            Log.e("RATES", db.getData2());
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
-            db.close();
-            Intent i = new Intent(NewSplashScreen.this,NewMainActivity.class);
-            startActivity(i);
-        }
-    }
+//    public class Fetch_CN extends AsyncTask<Void, Void, Boolean> {
+//        Database_Handler db = new Database_Handler(NewSplashScreen.this);
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            try {
+//                db.open();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//
+//
+//
+//            jParser = new JSONParser();
+//            jsoni = jParser.getJSONFromUrl(fetch_json_CC);
+//            String CC;
+//            try {
+//                for (int i = 0; i < l; i++) {
+//                    CC = jsoni.getString(list.get(i));
+//                    db.CreateEntrydb2(list.get(i), CC);
+//                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+////            Log.e("RATES", db.getData2());
+//
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean aBoolean) {
+//            super.onPostExecute(aBoolean);
+//            db.close();
+//            Intent i = new Intent(NewSplashScreen.this,NewMainActivity.class);
+//            startActivity(i);
+//        }
+//    }
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
@@ -327,4 +281,10 @@ public class NewSplashScreen extends Activity {
         list.add("ZWL");
         return list;
     }
+
+    public  void startNewMainActivity(){
+        Intent i = new Intent(NewSplashScreen.this,NewMainActivity.class);
+        startActivity(i);
+    }
+
 }

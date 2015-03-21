@@ -53,27 +53,29 @@ public class NewMainActivity extends ActionBarActivity {
         }
 
         db = new Database_Handler(this);
-
+        try {
+            db.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         lvfrom.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try {
+
 
                     if(enteredNo.getText().toString().isEmpty()){
                         Toast.makeText(NewMainActivity.this,"Please Enter A No",Toast.LENGTH_LONG).show();
                     }else {
-                        db.open();
+
                         from = db.getCountryCurrency(position);
                         fromRate = db.getRate(from);
                         fromTv.setText(from);
                         Calculations(fromRate, toRate);
 
-                        db.close();
+
                     }
 
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+
 
 
             }
@@ -83,21 +85,19 @@ public class NewMainActivity extends ActionBarActivity {
         lvto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                try {
+
                    if(enteredNo.getText().toString().isEmpty()){
                        Toast.makeText(NewMainActivity.this,"Please Enter A No",Toast.LENGTH_LONG).show();
                    }else {
-                       db.open();
+
                        to = db.getCountryCurrency(position);
                        toTv.setText(to);
                        toRate = db.getRate(to);
                        Calculations(fromRate, toRate);
-                       db.close();
+
                    }
 
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+
 
 
             }
@@ -113,5 +113,9 @@ public class NewMainActivity extends ActionBarActivity {
         Ans.setText(""+ans);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        db.close();
+    }
 }
