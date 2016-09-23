@@ -1,7 +1,6 @@
-package com.example.manas.currencyconverter;
+package com.droid.manas.currencyconverter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 

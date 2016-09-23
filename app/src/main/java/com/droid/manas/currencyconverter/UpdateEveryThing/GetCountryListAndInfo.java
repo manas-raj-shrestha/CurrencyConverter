@@ -1,15 +1,13 @@
-package com.example.manas.currencyconverter.UpdateEveryThing;
+package com.droid.manas.currencyconverter.UpdateEveryThing;
 
 import android.app.Activity;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 
-import com.example.manas.currencyconverter.Database_Handler;
-import com.example.manas.currencyconverter.InfoClasses.CountryInfoClass;
-import com.example.manas.currencyconverter.Interfaces.API;
+import com.droid.manas.currencyconverter.Database_Handler;
+import com.droid.manas.currencyconverter.InfoClasses.CountryInfoClass;
+import com.droid.manas.currencyconverter.Interfaces.API;
 
 import java.sql.SQLException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.manas.currencyconverter.InfoClasses;
+package com.droid.manas.currencyconverter.InfoClasses;
 
 import java.util.List;
 

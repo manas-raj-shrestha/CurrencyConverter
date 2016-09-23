@@ -1,4 +1,4 @@
-package com.example.manas.currencyconverter.InfoClasses;
+package com.droid.manas.currencyconverter.InfoClasses;
 
 /**
  * Created by Manas on 3/20/2015.

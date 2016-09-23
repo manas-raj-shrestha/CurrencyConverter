@@ -1,16 +1,12 @@
-package com.example.manas.currencyconverter;
+package com.droid.manas.currencyconverter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.net.UnknownServiceException;
 
 /**
  * Created by Manas on 3/16/2015.

@@ -1,4 +1,4 @@
-package com.example.manas.currencyconverter;
+package com.droid.manas.currencyconverter;
 
 import android.util.Log;
 

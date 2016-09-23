@@ -1,4 +1,4 @@
-package com.example.manas.currencyconverter;
+package com.droid.manas.currencyconverter;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.manas.currencyconverter.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

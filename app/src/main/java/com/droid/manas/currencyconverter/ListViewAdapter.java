@@ -1,4 +1,4 @@
-package com.example.manas.currencyconverter;
+package com.droid.manas.currencyconverter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,10 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.manas.currencyconverter.R;
 import com.squareup.picasso.Picasso;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 

@@ -1,7 +1,7 @@
-package com.example.manas.currencyconverter.Interfaces;
+package com.droid.manas.currencyconverter.Interfaces;
 
-import com.example.manas.currencyconverter.InfoClasses.CountryInfoClass;
-import com.example.manas.currencyconverter.InfoClasses.RatesInfoClass;
+import com.droid.manas.currencyconverter.InfoClasses.CountryInfoClass;
+import com.droid.manas.currencyconverter.InfoClasses.RatesInfoClass;
 
 import java.util.List;
 

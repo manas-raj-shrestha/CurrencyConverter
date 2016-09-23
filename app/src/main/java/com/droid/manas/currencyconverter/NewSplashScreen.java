@@ -1,70 +1,103 @@
-package com.example.manas.currencyconverter;
+package com.droid.manas.currencyconverter;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Window;
 import android.widget.Toast;
+
+import com.example.manas.currencyconverter.R;
+import com.droid.manas.currencyconverter.UpdateEveryThing.GetCountryListAndInfo;
+import com.droid.manas.currencyconverter.UpdateEveryThing.GetRates;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Manas on 3/16/2015.
- */
-public class SplashScreenHandler extends ActionBarActivity {
+public class NewSplashScreen extends Activity {
     SharedPreferences currency;
-    String filename = "CurrencyConverter";
-    List<String> listOfRates = new ArrayList<>();
-    private String db_name = "currency";
-    String Status;
+    String Status,filename = "CurrencyConverter";
+    private String fetch_json = "http://openexchangerates.org/api/latest.json?app_id=6d8df28bf2d04c52a75661f23065f545";
+    private String fetch_json_CC = "http://openexchangerates.org/api/currencies.json";
+    JSONParser jParser;
+    JSONObject jsoni;
+    int l = 1;
 
+    List<String> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         setContentView(R.layout.splash);
+
+        GetCountryListAndInfo get = new GetCountryListAndInfo(NewSplashScreen.this);
 
         currency = getSharedPreferences(filename, 0);
         Status = currency.getString("isAppInitialized", "No");
+
         if(Status.contentEquals("No") && (isNetworkAvailable()==false)) {
-            Toast.makeText(this,"Need Internet To Run App For The First Time", Toast.LENGTH_SHORT).show();
-        }else {
-            if (isNetworkAvailable() == true) {
+            Toast.makeText(this, "Need Internet To Run App For The First Time", Toast.LENGTH_SHORT).show();
+        }else{
 
-                getBaseContext().deleteDatabase(db_name);
-                listOfRates = populateSpinnerList();
-                new InitializeDatabase(listOfRates, SplashScreenHandler.this, SplashScreenHandler.this).execute();
-                SharedPreferences.Editor edit = currency.edit();
-                edit.putString("isAppInitialized", "Yes");
-                edit.commit();
+            get.requestData();
 
-            } else {
-                SharedPreferences.Editor edit = currency.edit();
-                edit.putString("isAppInitialized", "Yes");
-                edit.commit();
+            new GetRates(this,this,populateSpinnerList()).execute();
 
-
-                StartMainActivity();
-            }
 
         }
-    }
 
-    public void StartMainActivity() {
-        finish();
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
+
 
     }
+
+
+
+
+//    public class Fetch_CN extends AsyncTask<Void, Void, Boolean> {
+//        Database_Handler db = new Database_Handler(NewSplashScreen.this);
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//            try {
+//                db.open();
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        @Override
+//        protected Boolean doInBackground(Void... params) {
+//
+//
+//
+//            jParser = new JSONParser();
+//            jsoni = jParser.getJSONFromUrl(fetch_json_CC);
+//            String CC;
+//            try {
+//                for (int i = 0; i < l; i++) {
+//                    CC = jsoni.getString(list.get(i));
+//                    db.CreateEntrydb2(list.get(i), CC);
+//                }
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+////            Log.e("RATES", db.getData2());
+//
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(Boolean aBoolean) {
+//            super.onPostExecute(aBoolean);
+//            db.close();
+//            Intent i = new Intent(NewSplashScreen.this,NewMainActivity.class);
+//            startActivity(i);
+//        }
+//    }
 
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
@@ -246,4 +279,10 @@ public class SplashScreenHandler extends ActionBarActivity {
         list.add("ZWL");
         return list;
     }
+
+    public  void startNewMainActivity(){
+        Intent i = new Intent(NewSplashScreen.this,NewMainActivity.class);
+        startActivity(i);
+    }
+
 }
