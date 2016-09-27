@@ -5,9 +5,13 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
+        android:name="com.droid.manas.currencyconverter.CurrencyConverterApplication"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
+        <activity android:name="com.droid.manas.currencyconverter.conversionscreen.ConversionActivity"/>
+
         <activity
             android:name="com.droid.manas.currencyconverter.MainActivity"
             android:label="@string/app_name" >
@@ -27,7 +31,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.droid.manas.currencyconverter.NewSplashScreen"
+            android:name="com.droid.manas.currencyconverter.splash.SplashActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

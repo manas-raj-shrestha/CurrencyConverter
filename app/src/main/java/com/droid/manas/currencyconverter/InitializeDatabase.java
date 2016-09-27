@@ -47,12 +47,12 @@ public class InitializeDatabase extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         JSONParser jParser = new JSONParser();
-        JSONObject jsoni = jParser.getJSONFromUrl(fetch_json);
+//        JSONObject jsoni = jParser.getJSONFromUrl(fetch_json);
         JSONObject rates = null;
         int l = 1;
 
         try {
-            rates = jsoni.getJSONObject("rates");
+//            rates = jsoni.getJSONObject("rates");
             l = rates.length();
 
 
@@ -74,17 +74,17 @@ public class InitializeDatabase extends AsyncTask<Void, Void, Boolean> {
             e.printStackTrace();
         }
 
-        jParser = new JSONParser();
-        jsoni = jParser.getJSONFromUrl(fetch_json_CC);
-        String CC;
-        try {
-            for (int i = 0; i < l; i++) {
-                CC = jsoni.getString(listOfRates.get(i));
-                db.CreateEntrydb2(listOfRates.get(i), CC);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        jParser = new JSONParser();
+//        jsoni = jParser.getJSONFromUrl(fetch_json_CC);
+//        String CC;
+//        try {
+//            for (int i = 0; i < l; i++) {
+//                CC = jsoni.getString(listOfRates.get(i));
+//                db.CreateEntrydb2(listOfRates.get(i), CC);
+//            }
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
 
         return null;

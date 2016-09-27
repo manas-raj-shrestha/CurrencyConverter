@@ -48,7 +48,7 @@ public class GetRates extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         jParser = new JSONParser();
-        jsoni = jParser.getJSONFromUrl(fetch_json);
+//        jsoni = jParser.getJSONFromUrl(fetch_json);
         JSONObject rates = null;
 
 //        db.DeleteFromTable("currency_offline_table");

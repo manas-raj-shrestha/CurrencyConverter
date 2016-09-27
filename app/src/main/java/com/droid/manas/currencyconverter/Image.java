@@ -19,9 +19,6 @@ public class Image {
     @JsonField
     public String NPR;
 
-
-
-
      /*
      * Optional callback method to do something when your
      * object is done parsing.

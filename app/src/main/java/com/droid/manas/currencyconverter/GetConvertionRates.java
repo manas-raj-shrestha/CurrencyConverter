@@ -42,10 +42,10 @@ public class GetConvertionRates extends AsyncTask<Void, Void, Boolean> {
     @Override
     protected Boolean doInBackground(Void... params) {
         JSONParser jParser = new JSONParser();
-        JSONObject json = jParser.getJSONFromUrl(fetch_json);
+//        JSONObject json = jParser.getJSONFromUrl(fetch_json);
         JSONObject rates = null;
         try {
-            rates = json.getJSONObject("rates");
+//            rates = json.getJSONObject("rates");
             String USDV1 = rates.getString(From);
             String USDV2 = rates.getString(To);
             Double c1 = Double.parseDouble(USDV1);

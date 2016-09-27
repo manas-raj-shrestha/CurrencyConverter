@@ -33,7 +33,7 @@ public class NewSplashScreen extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        GetCountryListAndInfo get = new GetCountryListAndInfo(NewSplashScreen.this);
+//        GetCountryListAndInfo get = new GetCountryListAndInfo(NewSplashScreen.this);
 
         currency = getSharedPreferences(filename, 0);
         Status = currency.getString("isAppInitialized", "No");
@@ -42,7 +42,7 @@ public class NewSplashScreen extends Activity {
             Toast.makeText(this, "Need Internet To Run App For The First Time", Toast.LENGTH_SHORT).show();
         }else{
 
-            get.requestData();
+//            get.requestData();
 
             new GetRates(this,this,populateSpinnerList()).execute();
 
