@@ -21,19 +21,18 @@ public class SplashActivity extends AppCompatActivity implements SplashContract.
         setContentView(R.layout.activity_splash);
 
         viewPresenterContract = new SplashActivityPresenter(this);
-        viewPresenterContract.startCurrencyListingRequest();
-
+        viewPresenterContract.startCurrencyRequest();
     }
 
     @Override
     public void showNetworkError() {
-        Toast.makeText(this, "No Internet Connection", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Need Internet Connection On First Run.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onLoadComplete() {
-        Toast.makeText(this, "Move to next activity", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, ConversionActivity.class));
+        finish();
     }
 
     @Override

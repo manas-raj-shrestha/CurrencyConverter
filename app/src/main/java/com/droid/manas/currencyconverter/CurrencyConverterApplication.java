@@ -25,4 +25,8 @@ public class CurrencyConverterApplication extends Application {
                 .build();
         Realm.setDefaultConfiguration(realmConfiguration);
     }
+
+    public static Context getContext(){
+        return context;
+    }
 }

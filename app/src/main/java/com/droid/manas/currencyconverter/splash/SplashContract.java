@@ -3,9 +3,9 @@ package com.droid.manas.currencyconverter.splash;
 public interface SplashContract {
 
     interface ViewPresenterContract {
-        void startCurrencyListingRequest();
 
-        void startCurrencyExchangeRateRequest();
+        void startCurrencyRequest();
+
     }
 
     interface PresenterViewContract {

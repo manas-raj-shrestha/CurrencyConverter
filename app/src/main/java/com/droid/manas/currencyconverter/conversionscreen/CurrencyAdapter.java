@@ -43,7 +43,10 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.Curren
         holder.tvCurrencyInfo.setText(currencyNames.getCurrencyAbbreviation() + "\n" + currencyNames.getCurrencyFullName());
 
         GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(holder.ivFlag);
-        Glide.with(context).load(String.format(FLAG_FORMAT,currencyNames.getCurrencyAbbreviation().substring(0, 2).toLowerCase())).into(imageViewTarget);
+        Glide.with(context)
+                .load(String.format(FLAG_FORMAT,currencyNames.getCurrencyAbbreviation().substring(0, 2).toLowerCase()))
+                .skipMemoryCache(false)
+                .into(imageViewTarget);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

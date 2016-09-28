@@ -1,7 +1,10 @@
 package com.droid.manas.currencyconverter.splash;
 
-import android.util.Log;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
+import com.droid.manas.currencyconverter.CurrencyConverterApplication;
 import com.droid.manas.currencyconverter.model.CurrencyNames;
 import com.droid.manas.currencyconverter.model.CurrencyRates;
 import com.droid.manas.currencyconverter.realm.RealmController;
@@ -28,7 +31,26 @@ public class SplashActivityPresenter implements SplashContract.ViewPresenterCont
     }
 
     @Override
-    public void startCurrencyListingRequest() {
+    public void startCurrencyRequest() {
+
+        if (isConnectedToInternet()) {
+            if (!realmController.getCurrencies().isEmpty()) {
+                startCurrencyExchangeRateRequest();
+            } else {
+                startCurrencyListingRequest();
+            }
+        } else {
+            if ((realmController.getCurrencies().isEmpty()) && (realmController.getAllExchangeRates().isEmpty())) {
+                presenterViewContract.showNetworkError();
+            } else {
+                presenterViewContract.onLoadComplete();
+            }
+        }
+
+    }
+
+    private void startCurrencyListingRequest() {
+
         RetrofitManager.getInstance().getCurrencyList(new Callback<JsonElement>() {
 
             @Override
@@ -57,7 +79,6 @@ public class SplashActivityPresenter implements SplashContract.ViewPresenterCont
                 }
 
                 realm.commitTransaction();
-                Log.e("---", realmController.getCurrencies().toString());
                 startCurrencyExchangeRateRequest();
             }
 
@@ -69,7 +90,6 @@ public class SplashActivityPresenter implements SplashContract.ViewPresenterCont
         });
     }
 
-    @Override
     public void startCurrencyExchangeRateRequest() {
         RetrofitManager.getInstance().getCurrencyRates(new Callback<JsonElement>() {
             @Override
@@ -109,4 +129,13 @@ public class SplashActivityPresenter implements SplashContract.ViewPresenterCont
             }
         });
     }
+
+    private boolean isConnectedToInternet() {
+        final ConnectivityManager conMgr = (ConnectivityManager) CurrencyConverterApplication.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        final NetworkInfo activeNetwork = conMgr.getActiveNetworkInfo();
+
+        return activeNetwork != null && activeNetwork.isConnected();
+    }
+
+
 }
